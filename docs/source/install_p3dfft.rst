@@ -154,6 +154,10 @@ Choose a MPI.
         :widths: auto
 
         "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$TACC_FFTW3_DIR FC=mpif90 CC=mpicc"
+        "GNU", "gcc", "./configure --enable-gnu --enable-fftw --with-fftw=/PATH/TO/FFTW/LIBRARY FC=mpif90 CC=mpicc CFLAGS=-lm"
+
+.. note::
+        User must install their own FFTW library for GNU compilers while using Intel MPI due to technical difficulties.
 
 .. raw:: html
 
@@ -168,7 +172,7 @@ Choose a MPI.
         "Intel", "intel", "./configure --enable-intel --enable-fftw --with-fftw=/PATH/TO/FFTW/LIBRARY FC=mpif90 CC=mpicc CFLAGS=-lmpifort"
 
 .. note::
-        Stampede2's FFTW module is not compatible with its MVAPICH2 module. Users must install their own FFTW library.
+        Stampede2's FFTW module is not compatible with its MVAPICH2 module yet. Users must install their own FFTW library.
 
 
 .. raw:: html

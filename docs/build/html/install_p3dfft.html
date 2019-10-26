@@ -434,8 +434,16 @@
 <td>intel, fftw3</td>
 <td>./configure --enable-intel --enable-fftw --with-fftw=$TACC_FFTW3_DIR FC=mpif90 CC=mpicc</td>
 </tr>
+<tr class="row-odd"><td>GNU</td>
+<td>gcc</td>
+<td>./configure --enable-gnu --enable-fftw --with-fftw=/PATH/TO/FFTW/LIBRARY FC=mpif90 CC=mpicc CFLAGS=-lm</td>
+</tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">User must install their own FFTW library for GNU compilers while using Intel MPI due to technical difficulties.</p>
+</div>
 </div>
 
 <div id="Stampede2_MVAPICH2" class="tabcontent"><table border="1" class="colwidths-auto docutils">
@@ -454,7 +462,7 @@
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Stampede2's FFTW module is not compatible with its MVAPICH2 module. Users must install their own FFTW library.</p>
+<p class="last">Stampede2's FFTW module is not compatible with its MVAPICH2 module yet. Users must install their own FFTW library.</p>
 </div>
 </div><p></p></div>
 <div class="section" id="compiling-on-bridges-psc">
