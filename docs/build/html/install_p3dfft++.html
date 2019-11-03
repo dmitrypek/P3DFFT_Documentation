@@ -171,14 +171,14 @@
 <h1>Installing P3DFFT++<a class="headerlink" href="#installing-p3dfft" title="Permalink to this headline">¶</a></h1>
 <p>The latest version of P3DFFT++ can be found <a class="reference external" href="https://github.com/sdsc/p3dfft.3/releases">here</a>. Once you have extracted the package, you must take the following steps to complete the setup:</p>
 <ol class="arabic simple">
-<li>Run the configure script</li>
-<li>Run 'make'</li>
-<li>Run 'make install'</li>
+<li>Run the <code class="docutils literal notranslate"><span class="pre">configure</span></code> script</li>
+<li>Run <code class="docutils literal notranslate"><span class="pre">make</span></code></li>
+<li>Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code></li>
 </ol>
 <div class="section" id="how-to-compile-p3dfft">
 <h2>How to compile P3DFFT++<a class="headerlink" href="#how-to-compile-p3dfft" title="Permalink to this headline">¶</a></h2>
-<p>P3DFFT++ uses a configure script to create Makefiles for compiling the library as well as several examples. This page will step you through the process of running the configure script properly.</p>
-<p>Run &quot;configure --help&quot; for complete list of options. Recommended options: --enable-stride1. For Cray XT platforms also recommended --enable-useeven.</p>
+<p>P3DFFT++ uses a <code class="docutils literal notranslate"><span class="pre">configure</span></code> script to create <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> for compiling the library as well as several examples. This page will step you through the process of running the <code class="docutils literal notranslate"><span class="pre">configure</span></code> script properly.</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">configure</span> <span class="pre">--help</span></code> for complete list of options. Recommended options: <code class="docutils literal notranslate"><span class="pre">--enable-stride1</span></code>. For Cray XT platforms also recommended <code class="docutils literal notranslate"><span class="pre">--enable-useeven</span></code>.</p>
 <p>Currently the package supports four compiler suites: PGI, Intel, IBM and GNU. Some examples of compiling on several systems are given below. Users may need to customize as needed. If you wish to share more examples or to request or contribute in support for other compilers, please write to <a class="reference external" href="mailto:dmitry&#37;&#52;&#48;sdsc%2eedu">dmitry<span>&#64;</span>sdsc<span>&#46;</span>edu</a>. If you give us an account on your system we will work with you to customize the installation.</p>
 <table border="1" class="colwidths-auto docutils">
 <thead valign="bottom">
@@ -189,132 +189,132 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>--prefix=PREFIX</td>
-<td>Mandatory for users without access to /usr/local</td>
-<td>This argument will install p3dfft to PREFIX when you run make install. By default, configure will install to /usr/local</td>
-<td>--prefix=$HOME/local/</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--prefix=PREFIX</span></code></td>
+<td>Mandatory for users without access to <code class="docutils literal notranslate"><span class="pre">/usr/local</span></code></td>
+<td>This argument will install P3DFFT++ to <code class="docutils literal notranslate"><span class="pre">PREFIX</span></code> when you run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code>. By default, <code class="docutils literal notranslate"><span class="pre">configure</span></code> will install to <code class="docutils literal notranslate"><span class="pre">/usr/local</span></code>.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--prefix=$HOME/local/</span></code>.</td>
 </tr>
-<tr class="row-odd"><td>--enable-gnu, --enable-ibm, --enable-intel, --enable-pgi, --enable-cray</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-gnu</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-ibm</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-intel</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-pgi</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-cray</span></code></td>
 <td>Mandatory</td>
-<td>These arguments will prepare p3dfft to be built by a specific compiler. You must only choose one option.</td>
-<td>--enable-pgi</td>
+<td>These arguments will prepare P3DFFT++ to be built by a specific compiler. You must only choose one option.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-pgi</span></code></td>
 </tr>
-<tr class="row-even"><td>--enable-fftw, --enable-essl</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-essl</span></code></td>
 <td>Mandatory</td>
-<td>These arguments will prepare p3dfft to be used with either the FFTW or ESSL library. You must only choose one option.</td>
-<td>--enable-fftw</td>
+<td>These arguments will prepare P3DFFT++ to be used with either the FFTW or ESSL library. You must only choose one option.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code></td>
 </tr>
-<tr class="row-odd"><td>--with-fftw-lib=FFTWLIBLOCATION</td>
-<td>Mandatory if --enable-fftw is used</td>
-<td>This argument specifies the path location for the FFTW librarys lib directory; it is mandatory if you are planning to use p3dfft with the FFTW library.</td>
-<td>--enable-fftw --with-fftw-lib=$FFTW_HOME/lib</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--with-fftw-lib=FFTW_LIB</span></code></td>
+<td>Mandatory if <code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code> is used</td>
+<td>This argument specifies the path location for the FFTW librarys lib directory; it is mandatory if you are planning to use P3DFFT++ with the FFTW library.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--with-fftw-lib=$FFTW_HOME/lib</span></code></td>
 </tr>
-<tr class="row-even"><td>--with-fftw-inc=FFTWINCLUDELOCATION</td>
-<td>Mandatory if --enable-fftw is used</td>
-<td>This argument specifies the path location for the FFTW librarys include directory; it is mandatory if you are planning to use p3dfft with the FFTW library.</td>
-<td>--enable-fftw --with-fftw-inc=$FFTW_HOME/include</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--with-fftw-inc=FFTW_INC</span></code></td>
+<td>Mandatory if <code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code> is used</td>
+<td>This argument specifies the path location for the FFTW librarys include directory; it is mandatory if you are planning to use P3DFFT++ with the FFTW library.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--with-fftw-inc=$FFTW_HOME/include</span></code></td>
 </tr>
-<tr class="row-odd"><td>--enable-openmp</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code></td>
 <td>Mandatory if using multithreaded version</td>
-<td>This argument adds the appropriate compiler flags to enable OpenMP</td>
-<td>--enable-openmp</td>
+<td>This argument adds the appropriate compiler flags to enable OpenMP.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code></td>
 </tr>
-<tr class="row-even"><td>--enable-openmpi</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-openmpi</span></code></td>
 <td>Optional</td>
-<td>This argument uses the OpenMPI implementation of MPI</td>
-<td>--enable-openmpi</td>
+<td>This argument uses the OpenMPI implementation of MPI.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-openmpi</span></code></td>
 </tr>
-<tr class="row-odd"><td>--enable-oned</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-oned</span></code></td>
 <td>Optional</td>
 <td>This argument is for 1D decomposition. The default is 2D decomposition but can be made to 1D by setting up a grid 1xn when running the code.</td>
-<td>--enable-oned</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-oned</span></code></td>
 </tr>
-<tr class="row-even"><td>--enable-estimate</td>
-<td>Optional, use only with --enable-fftw</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-estimate</span></code></td>
+<td>Optional, use only with <code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code></td>
 <td>If this argument is passed, the FFTW library will not use run-time tuning to select the fastest algorithm for computing FFTs.</td>
-<td>--enable-estimate</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-estimate</span></code></td>
 </tr>
-<tr class="row-odd"><td>--enable-measure</td>
-<td>Optional, enabled by default, use only with --enable-fftw</td>
-<td>For search-once-for-the-fast algorithm (takes more time on p3dfft_setup()).</td>
-<td>--enable-measure</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-measure</span></code></td>
+<td>Optional, enabled by default, use only with <code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code></td>
+<td>For search-once-for-the-fast algorithm (takes more time on <code class="docutils literal notranslate"><span class="pre">p3dfft_setup()</span></code>).</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-measure</span></code></td>
 </tr>
-<tr class="row-even"><td>--enable-patient</td>
-<td>Optional, use only with --enable-fftw</td>
-<td>For search-once-for-the-fastest-algorithm (takes much more time on p3dfft_setup()).</td>
-<td>--enable-patient</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-patient</span></code></td>
+<td>Optional, use only with <code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code></td>
+<td>For search-once-for-the-fastest-algorithm (takes much more time on <code class="docutils literal notranslate"><span class="pre">p3dfft_setup()</span></code>).</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-patient</span></code></td>
 </tr>
-<tr class="row-odd"><td>--enable-dimsc</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-dimsc</span></code></td>
 <td>Optional</td>
 <td>To assign processor rows and columns in the Cartesian processor grid according to C convention. The default is Fortran convention which is recommended. This option does not affect the order of storage of arrays in memory.</td>
-<td>--enable-dimsc</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-dimsc</span></code></td>
 </tr>
-<tr class="row-even"><td>--enable-useeven</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-useeven</span></code></td>
 <td>Optional, recommended for Cray XT</td>
-<td>This argument is for using MPI_Alltoall instead of MPI_Alltotallv. This will pad the send buffers with zeros to make them of equal size; not needed on most architecture but may lead to better results on Cray XT.</td>
-<td>--enable-useeven</td>
+<td>This argument is for using <code class="docutils literal notranslate"><span class="pre">MPI_Alltoall</span></code> instead of <code class="docutils literal notranslate"><span class="pre">MPI_Alltotallv</span></code>. This will pad the send buffers with zeros to make them of equal size; not needed on most architecture but may lead to better results on Cray XT.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-useeven</span></code></td>
 </tr>
-<tr class="row-odd"><td>--enable-stride1</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-stride1</span></code></td>
 <td>Optional, recommended</td>
-<td>To enable stride-1 data structures on output (this may in some cases give some advantage in performance). You can define loop blocking factors NLBX and NBLY to experiment, otherwise they are set to default values.</td>
-<td>--enable-stride1</td>
+<td>To enable stride-1 data structures on output (this may in some cases give some advantage in performance). You can define loop blocking factors <code class="docutils literal notranslate"><span class="pre">NLBX</span></code> and <code class="docutils literal notranslate"><span class="pre">NBLY</span></code> to experiment, otherwise they are set to default values.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-stride1</span></code></td>
 </tr>
-<tr class="row-even"><td>--enable-nblx</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-nblx</span></code></td>
 <td>Optional</td>
-<td>To define loop blocking factor NBL_X</td>
-<td>--enable-nblx=32</td>
+<td>To define loop blocking factor <code class="docutils literal notranslate"><span class="pre">NBL_X</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-nblx=32</span></code></td>
 </tr>
-<tr class="row-odd"><td>--enable-nbly1</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-nbly1</span></code></td>
 <td>Optional</td>
-<td>To define loop blocking factor NBL_Y1</td>
-<td>--enable-nbly1=32</td>
+<td>To define loop blocking factor <code class="docutils literal notranslate"><span class="pre">NBL_Y1</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-nbly1=32</span></code></td>
 </tr>
-<tr class="row-even"><td>--enable-nbly2</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-nbly2</span></code></td>
 <td>Optional</td>
-<td>To define loop blocking factor NBL_Y2</td>
-<td>--enable-nbly2=32</td>
+<td>To define loop blocking factor <code class="docutils literal notranslate"><span class="pre">NBL_Y2</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-nbly2=32</span></code></td>
 </tr>
-<tr class="row-odd"><td>--enable-nblz</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-nblz</span></code></td>
 <td>Optional</td>
-<td>To define loop blocking factor NBL_Z</td>
-<td>--enable-nblz=32</td>
+<td>To define loop blocking factor <code class="docutils literal notranslate"><span class="pre">NBL_Z</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-nblz=32</span></code></td>
 </tr>
-<tr class="row-even"><td>--enable-single</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-single</span></code></td>
 <td>Optional</td>
-<td>This argument will compile p3dfft in single-precision. By default, configure will setup p3dfft to be compiled in double-precision.</td>
-<td>--enable-single</td>
+<td>This argument will compile P3DFFT++ in single-precision. By default, <code class="docutils literal notranslate"><span class="pre">configure</span></code> will setup P3DFFT++ to be compiled in double-precision.</td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-single</span></code></td>
 </tr>
-<tr class="row-odd"><td>FC=&lt;Fortran compiler&gt;</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">FC=&lt;Fortran</span> <span class="pre">compiler&gt;</span></code></td>
 <td>Strongly recommended</td>
 <td>Fortran compiler</td>
-<td>FC=mpif90</td>
+<td><code class="docutils literal notranslate"><span class="pre">FC=mpif90</span></code></td>
 </tr>
-<tr class="row-even"><td>FCFLAGS=&quot;&lt;Fortran compiler flags&gt;&quot;</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">FCFLAGS=&quot;&lt;Fortran</span> <span class="pre">compiler</span> <span class="pre">flags&gt;&quot;</span></code></td>
 <td>Optional, recommended</td>
 <td>Fortran compiler flags</td>
-<td>FCFLAGS=&quot;-O3&quot;</td>
+<td><code class="docutils literal notranslate"><span class="pre">FCFLAGS=&quot;-O3&quot;</span></code></td>
 </tr>
-<tr class="row-odd"><td>CC=&lt;C compiler&gt;</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CC=&lt;C</span> <span class="pre">compiler&gt;</span></code></td>
 <td>Strongly Recommended</td>
 <td>C compiler</td>
-<td>CC=mpicc</td>
+<td><code class="docutils literal notranslate"><span class="pre">CC=mpicc</span></code></td>
 </tr>
-<tr class="row-even"><td>CFLAGS=&quot;&lt;C compiler flags&gt;&quot;</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;&lt;C</span> <span class="pre">compiler</span> <span class="pre">flags&gt;&quot;</span></code></td>
 <td>Optional, recommended</td>
 <td>C compiler flags</td>
-<td>CFLAGS=&quot;-O3&quot;</td>
+<td><code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3&quot;</span></code></td>
 </tr>
-<tr class="row-odd"><td>CXX=&lt;C++ compiler&gt;</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CXX=&lt;C++</span> <span class="pre">compiler&gt;</span></code></td>
 <td>Strongly Recommended</td>
 <td>C++ compiler</td>
-<td>CXX=mpicxx</td>
+<td><code class="docutils literal notranslate"><span class="pre">CXX=mpicxx</span></code></td>
 </tr>
-<tr class="row-even"><td>CXXFLAGS=&quot;&lt;C++ compiler flags&gt;&quot;</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CXXFLAGS=&quot;&lt;C++</span> <span class="pre">compiler</span> <span class="pre">flags&gt;&quot;</span></code></td>
 <td>Optional, recommended</td>
 <td>C++ compiler flags</td>
-<td>CXXFLAGS=&quot;-O3&quot;</td>
+<td><code class="docutils literal notranslate"><span class="pre">CXXFLAGS=&quot;-O3&quot;</span></code></td>
 </tr>
-<tr class="row-odd"><td>LDFLAGS=&quot;&lt;linker flags&gt;&quot;</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">LDFLAGS=&quot;&lt;linker</span> <span class="pre">flags&gt;&quot;</span></code></td>
 <td>Optional</td>
 <td>Linker flags</td>
 <td>&#160;</td>
