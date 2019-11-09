@@ -100,7 +100,7 @@ Choose a MPI.
         :widths: auto
 
         "Intel", "intel, fftw", "./configure --enable-intel --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc"
-        "GNU", "gnu, fftw", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc"
+        "GNU", "gnu, fftw", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc LDFLAGS=-lm"
 
 .. raw:: html
 
@@ -111,9 +111,10 @@ Choose a MPI.
 .. csv-table::
         :header: "Compiler", "Modules", "Arguments"
         :widths: auto
+        :escape: '
 
         "Intel", "intel, fftw", "./configure --enable-intel --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc CFLAGS=-lmpifort"
-        "GNU", "gnu, fftw", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc CFLAGS=-lmpichf90"
+        "GNU", "gnu, fftw", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc LDFLAGS='"-lm -lmpichf90'""
         "PGI", "pgi, fftw", "./configure --enable-pgi --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc"
 
 .. raw:: html
@@ -127,7 +128,7 @@ Choose a MPI.
         :widths: auto
 
         "Intel", "intel, fftw", "./configure --enable-intel --enable-fftw --enable-openmpi --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc"
-        "GNU", "gnu, fftw", "./configure --enable-gnu --enable-fftw --enable-openmpi --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc CFLAGS=-lm"
+        "GNU", "gnu, fftw", "./configure --enable-gnu --enable-fftw --enable-openmpi --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc LDFLAGS=-lm"
         "PGI", "pgi, fftw", "./configure --enable-pgi --enable-fftw --enable-openmpi --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc"
 
 .. raw:: html
@@ -154,7 +155,7 @@ Choose a MPI.
         :widths: auto
 
         "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$TACC_FFTW3_DIR FC=mpif90 CC=mpicc"
-        "GNU", "gcc", "./configure --enable-gnu --enable-fftw --with-fftw=/PATH/TO/FFTW/LIBRARY FC=mpif90 CC=mpicc CFLAGS=-lm"
+        "GNU", "gcc", "./configure --enable-gnu --enable-fftw --with-fftw=/PATH/TO/FFTW/LIBRARY FC=mpif90 CC=mpicc LDFLAGS=-lm"
 
 .. note::
         User must install their own FFTW library for GNU compilers while using Intel MPI due to technical difficulties.
@@ -169,7 +170,7 @@ Choose a MPI.
         :header: "Compiler", "Modules", "Arguments"
         :widths: auto
 
-        "Intel", "intel", "./configure --enable-intel --enable-fftw --with-fftw=/PATH/TO/FFTW/LIBRARY FC=mpif90 CC=mpicc CFLAGS=-lmpifort"
+        "Intel", "intel", "./configure --enable-intel --enable-fftw --with-fftw=/PATH/TO/FFTW/LIBRARY FC=mpif90 CC=mpicc LDFLAGS=-lmpifort"
 
 .. note::
         Stampede2's FFTW module is not compatible with its MVAPICH2 module yet. Users must install their own FFTW library.
@@ -198,7 +199,7 @@ Choose a MPI.
         :header: "Compiler", "Modules", "Arguments"
         :widths: auto
 
-        "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpiifort CC=mpicc CFLAGS=-lm"
+        "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpiifort CC=mpicc LDFLAGS=-lm"
 
 .. raw:: html
 
@@ -209,9 +210,10 @@ Choose a MPI.
 .. csv-table::
         :header: "Compiler", "Modules", "Arguments"
         :widths: auto
+        :escape: '
 
-        "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CFLAGS=-lmpifort"
-        "GNU", "fftw3", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CFLAGS=-lm"
+        "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc LDFLAGS=-lmpifort"
+        "GNU", "fftw3", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc LDFLAGS='"-lm -lmpichf90'""
 
 .. raw:: html
 
@@ -224,7 +226,7 @@ Choose a MPI.
         :widths: auto
 
         "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --enable-openmpi --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc"
-        "GNU", "fftw3", "./configure --enable-gnu --enable-fftw --enable-openmpi --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CFLAGS=-lm"
+        "GNU", "fftw3", "./configure --enable-gnu --enable-fftw --enable-openmpi --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc LDFLAGS=-lm"
         "PGI", "pgi, fftw3", "./configure --enable-pgi --enable-fftw --enable-openmpi --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc"
 
 .. raw:: html
