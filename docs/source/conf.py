@@ -46,7 +46,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'P3DFFT++'
+project = 'P3DFFT'
 copyright = '2019, Dmitry Pekurovsky'
 author = 'Dmitry Pekurovsky'
 
