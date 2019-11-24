@@ -1,4 +1,4 @@
-# Read the Docs for P3DFFT
+# Read the Docs for [P3DFFT](https://www.p3dfft.net)
 
 First of all, there is an [official Read the Docs guide page](https://docs.readthedocs.io/en/stable/). If you need more detailed instruction, please refer to the link.
 
