@@ -43,9 +43,9 @@ Compiling on Comet (XSEDE/SDSC)
         :header: "Compiler", "Modules", "Arguments"
         :widths: auto
 
-        "Intel", "intel, fftw", "./configure --enable-intel --enable-fftw --with-fftw-lib=$FFTWHOME/lib --with-fftw-inc=$FFTWHOME/include FC=mpif90 CC=mpicc CXX=mpicxx"
-        "GNU", "gnu, fftw", "./configure --enable-gnu --enable-fftw --with-fftw-lib=$FFTWHOME/lib --with-fftw-inc=$FFTWHOME/include FC=mpif90 CC=mpicc CXX=mpicxx"
-        "PGI", "pgi, fftw", "./configure --enable-pgi --enable-fftw --with-fftw-lib=$FFTWHOME/lib --with-fftw-inc=$FFTWHOME/include FC=mpif90 CC=mpicc CXX=mpicxx"
+        "Intel", "intel, fftw", "./configure --enable-intel --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc CXX=mpicxx"
+        "GNU", "gnu, fftw", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc CXX=mpicxx"
+        "PGI", "pgi, fftw", "./configure --enable-pgi --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc CXX=mpicxx"
 
 Compiling on Stampede2 (XSEDE/TACC)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -53,8 +53,8 @@ Compiling on Stampede2 (XSEDE/TACC)
         :header: "Compiler", "Modules", "Arguments"
         :widths: auto
 
-        "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw-lib=$TACC_FFTW3_LIB --with-fftw-inc=$TACC_FFTW3_INC FC=mpif90 CC=mpicc CXX=mpicxx"
-        "GNU", "gcc, fftw3", "./configure --enable-gnu --enable-fftw --with-fftw-lib=$TACC_FFTW3_LIB --with-fftw-inc=$TACC_FFTW3_INC FC=mpif90 CC=mpicc CXX=mpicxx"
+        "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$TACC_FFTW3_DIR FC=mpif90 CC=mpicc CXX=mpicxx"
+        "GNU", "gcc, fftw3", "./configure --enable-gnu --enable-fftw --with-fftw=$TACC_FFTW3_DIR FC=mpif90 CC=mpicc CXX=mpicxx"
 
 Compiling on Bridges (PSC)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -62,6 +62,6 @@ Compiling on Bridges (PSC)
         :header: "Compiler", "Modules", "Arguments"
         :widths: auto
 
-        "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw-lib=$FFTW3_LIB --with-fftw-inc=$FFTW3_INCLUDE FC=mpiifort CC=mpiicc CXX=mpiicpc"
-        "GNU", "gcc, fftw3", "./configure --enable-gnu --enable-fftw --with-fftw-lib=$FFTW3_LIB --with-fftw-inc=$FFTW3_INCLUDE FC=mpif90 CC=mpicc CXX=mpicxx"
-        "PGI", "pgi, fftw3", "./configure --enable-pgi --enable-fftw --with-fftw-lib=$FFTW3_LIB --with-fftw-inc=$FFTW3_INCLUDE FC=mpiifort CC=mpiicc CXX=mpiicpc"
+        "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpiifort CC=mpiicc CXX=mpiicpc"
+        "GNU", "gcc, fftw3", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CXX=mpicxx"
+        "PGI", "pgi, fftw3", "./configure --enable-pgi --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpiifort CC=mpiicc CXX=mpiicpc"

@@ -288,15 +288,15 @@
 <tbody valign="top">
 <tr class="row-even"><td>Intel</td>
 <td>intel, fftw</td>
-<td>./configure --enable-intel --enable-fftw --with-fftw-lib=$FFTWHOME/lib --with-fftw-inc=$FFTWHOME/include FC=mpif90 CC=mpicc CXX=mpicxx</td>
+<td>./configure --enable-intel --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc CXX=mpicxx</td>
 </tr>
 <tr class="row-odd"><td>GNU</td>
 <td>gnu, fftw</td>
-<td>./configure --enable-gnu --enable-fftw --with-fftw-lib=$FFTWHOME/lib --with-fftw-inc=$FFTWHOME/include FC=mpif90 CC=mpicc CXX=mpicxx</td>
+<td>./configure --enable-gnu --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc CXX=mpicxx</td>
 </tr>
 <tr class="row-even"><td>PGI</td>
 <td>pgi, fftw</td>
-<td>./configure --enable-pgi --enable-fftw --with-fftw-lib=$FFTWHOME/lib --with-fftw-inc=$FFTWHOME/include FC=mpif90 CC=mpicc CXX=mpicxx</td>
+<td>./configure --enable-pgi --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc CXX=mpicxx</td>
 </tr>
 </tbody>
 </table>
@@ -313,11 +313,11 @@
 <tbody valign="top">
 <tr class="row-even"><td>Intel</td>
 <td>intel, fftw3</td>
-<td>./configure --enable-intel --enable-fftw --with-fftw-lib=$TACC_FFTW3_LIB --with-fftw-inc=$TACC_FFTW3_INC FC=mpif90 CC=mpicc CXX=mpicxx</td>
+<td>./configure --enable-intel --enable-fftw --with-fftw=$TACC_FFTW3_DIR FC=mpif90 CC=mpicc CXX=mpicxx</td>
 </tr>
 <tr class="row-odd"><td>GNU</td>
 <td>gcc, fftw3</td>
-<td>./configure --enable-gnu --enable-fftw --with-fftw-lib=$TACC_FFTW3_LIB --with-fftw-inc=$TACC_FFTW3_INC FC=mpif90 CC=mpicc CXX=mpicxx</td>
+<td>./configure --enable-gnu --enable-fftw --with-fftw=$TACC_FFTW3_DIR FC=mpif90 CC=mpicc CXX=mpicxx</td>
 </tr>
 </tbody>
 </table>
@@ -334,15 +334,15 @@
 <tbody valign="top">
 <tr class="row-even"><td>Intel</td>
 <td>intel, fftw3</td>
-<td>./configure --enable-intel --enable-fftw --with-fftw-lib=$FFTW3_LIB --with-fftw-inc=$FFTW3_INCLUDE FC=mpiifort CC=mpiicc CXX=mpiicpc</td>
+<td>./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpiifort CC=mpiicc CXX=mpiicpc</td>
 </tr>
 <tr class="row-odd"><td>GNU</td>
 <td>gcc, fftw3</td>
-<td>./configure --enable-gnu --enable-fftw --with-fftw-lib=$FFTW3_LIB --with-fftw-inc=$FFTW3_INCLUDE FC=mpif90 CC=mpicc CXX=mpicxx</td>
+<td>./configure --enable-gnu --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CXX=mpicxx</td>
 </tr>
 <tr class="row-even"><td>PGI</td>
 <td>pgi, fftw3</td>
-<td>./configure --enable-pgi --enable-fftw --with-fftw-lib=$FFTW3_LIB --with-fftw-inc=$FFTW3_INCLUDE FC=mpiifort CC=mpiicc CXX=mpiicpc</td>
+<td>./configure --enable-pgi --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpiifort CC=mpiicc CXX=mpiicpc</td>
 </tr>
 </tbody>
 </table>
