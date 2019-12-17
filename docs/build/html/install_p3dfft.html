@@ -363,6 +363,10 @@
 <td>gnu, fftw</td>
 <td>./configure --enable-gnu --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc LDFLAGS=-lm</td>
 </tr>
+<tr class="row-even"><td>PGI</td>
+<td>pgi, fftw</td>
+<td>./configure --enable-pgi --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -385,7 +389,7 @@
 </tr>
 <tr class="row-even"><td>PGI</td>
 <td>pgi, fftw</td>
-<td>./configure --enable-pgi --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc</td>
+<td>./configure --enable-pgi --enable-fftw --with-fftw=$FFTWHOME FC=mpif90 CC=mpicc LDFLAGS=-lmpichf90</td>
 </tr>
 </tbody>
 </table>
