@@ -190,7 +190,7 @@ Choose a MPI.
 
         <div class="tab">
                 <button class="tablinks" onclick="openTab(event, 'Bridges_Intel_MPI')" id="defaultOpen">Intel MPI</button>
-                <button class="tablinks" onclick="openTab(event, 'Bridges_MVAPICH2')">MVAPICH2</button>
+                <button class="tablinks" onclick="openTab(event, 'Bridges_MVAPICH')">MVAPICH</button>
                 <button class="tablinks" onclick="openTab(event, 'Bridges_Open_MPI')">Open MPI</button>
         </div>
 
@@ -206,7 +206,7 @@ Choose a MPI.
 
         </div>
 
-        <div id="Bridges_MVAPICH2" class="tabcontent">
+        <div id="Bridges_MVAPICH" class="tabcontent">
 
 .. csv-table::
         :header: "Compiler", "Modules", "Arguments"
@@ -214,7 +214,7 @@ Choose a MPI.
         :escape: '
 
         "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc LDFLAGS=-lmpifort"
-        "GNU", "fftw3", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc LDFLAGS='"-lm -lmpichf90'""
+        "GNU", "gcc, fftw3", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc LDFLAGS='"-lm -lmpichf90'""
 
 .. raw:: html
 

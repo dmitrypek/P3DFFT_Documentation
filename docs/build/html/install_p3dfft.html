@@ -474,7 +474,7 @@
 <p>Choose a MPI.</p>
 <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Bridges_Intel_MPI')" id="defaultOpen">Intel MPI</button>
-        <button class="tablinks" onclick="openTab(event, 'Bridges_MVAPICH2')">MVAPICH2</button>
+        <button class="tablinks" onclick="openTab(event, 'Bridges_MVAPICH')">MVAPICH</button>
         <button class="tablinks" onclick="openTab(event, 'Bridges_Open_MPI')">Open MPI</button>
 </div>
 
@@ -494,7 +494,7 @@
 </table>
 </div>
 
-<div id="Bridges_MVAPICH2" class="tabcontent"><table border="1" class="colwidths-auto docutils">
+<div id="Bridges_MVAPICH" class="tabcontent"><table border="1" class="colwidths-auto docutils">
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Compiler</th>
 <th class="head">Modules</th>
@@ -507,7 +507,7 @@
 <td>./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc LDFLAGS=-lmpifort</td>
 </tr>
 <tr class="row-odd"><td>GNU</td>
-<td>fftw3</td>
+<td>gcc, fftw3</td>
 <td>./configure --enable-gnu --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc LDFLAGS=&quot;-lm -lmpichf90&quot;</td>
 </tr>
 </tbody>
