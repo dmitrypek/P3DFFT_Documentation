@@ -249,13 +249,3 @@ Choose a MPI.
                 evt.currentTarget.className += " active";
         }
         </script>
-
-
-Compiling on Mira/Cetus/Vesta (ALCF)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. csv-table::
-        :header: "Compiler", "Arguments"
-        :widths: auto
-
-        "IBM XL", "./configure --enable-ibm --enable-essl --with-essl=/soft/libraries/essl/current FC=mpixlf90_r CC=mpixlc_r"
-        "GNU", "./configure --enable-gnu --enable-fftw --with-fftw=/soft/libraries/alcf/current/{xl,gcc}/FFTW3 FC=mpif90 CC=mpicc"
