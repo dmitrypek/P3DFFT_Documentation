@@ -64,4 +64,4 @@ Compiling on Bridges (PSC)
 
         "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpiifort CC=mpiicc CXX=mpiicpc"
         "GNU", "gcc, fftw3", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CXX=mpicxx"
-        "PGI", "pgi, fftw3", "./configure --enable-pgi --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpiifort CC=mpiicc CXX=mpiicpc"
+        "PGI", "pgi, fftw3", "./configure --enable-pgi --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CXX=mpicxx"
