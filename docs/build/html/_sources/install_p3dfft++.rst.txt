@@ -65,3 +65,12 @@ Compiling on Bridges (PSC)
         "Intel", "intel, fftw3", "./configure --enable-intel --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpiifort CC=mpiicc CXX=mpiicpc"
         "GNU", "gcc, fftw3", "./configure --enable-gnu --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CXX=mpicxx"
         "PGI", "pgi, fftw3", "./configure --enable-pgi --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CXX=mpicxx"
+
+Compiling on Summit (OLCF)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. csv-table::
+        :header: "Compiler", "Modules", "Arguments"
+        :widths: auto
+
+        "GNU", "gcc, fftw", "./configure --enable-gnu --enable-fftw --with-fftw=$OLCF_FFTW_ROOT FC=mpif90 CC=mpicc CXX=mpiCC"
+        "PGI", "pgi, fftw", "./configure --enable-pgi --enable-fftw --with-fftw=$OLCF_FFTW_ROOT FC=mpif90 CC=mpicc CXX=mpiCC"

@@ -95,6 +95,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#compiling-on-comet-xsede-sdsc">Compiling on Comet (XSEDE/SDSC)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#compiling-on-stampede2-xsede-tacc">Compiling on Stampede2 (XSEDE/TACC)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#compiling-on-bridges-psc">Compiling on Bridges (PSC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compiling-on-summit-olcf">Compiling on Summit (OLCF)</a></li>
 </ul>
 </li>
 </ul>
@@ -343,6 +344,27 @@
 <tr class="row-even"><td>PGI</td>
 <td>pgi, fftw3</td>
 <td>./configure --enable-pgi --enable-fftw --with-fftw=$FFTW3_LIB/.. FC=mpif90 CC=mpicc CXX=mpicxx</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="compiling-on-summit-olcf">
+<h3>Compiling on Summit (OLCF)<a class="headerlink" href="#compiling-on-summit-olcf" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-auto docutils">
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Compiler</th>
+<th class="head">Modules</th>
+<th class="head">Arguments</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>GNU</td>
+<td>gcc, fftw</td>
+<td>./configure --enable-gnu --enable-fftw --with-fftw=$OLCF_FFTW_ROOT FC=mpif90 CC=mpicc CXX=mpiCC</td>
+</tr>
+<tr class="row-odd"><td>PGI</td>
+<td>pgi, fftw</td>
+<td>./configure --enable-pgi --enable-fftw --with-fftw=$OLCF_FFTW_ROOT FC=mpif90 CC=mpicc CXX=mpiCC</td>
 </tr>
 </tbody>
 </table>
