@@ -174,14 +174,32 @@
 <h1>P3DFFT++ Fortran examples<a class="headerlink" href="#p3dfft-fortran-examples" title="Permalink to this headline">¶</a></h1>
 <table border="1" class="colwidths-auto docutils">
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/ef2908835d0ce55dfb051fc10fd4044c/test3D_r2c.f90"><code class="xref download docutils literal notranslate"><span class="pre">test3D_r2c.f90</span></code></a></td>
-<td>Test program for real-to-complex and complex-to-real 3D FFT. Can be used as a correctness test and a timing test.</td>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/8397182243e1ad8626234e0ed40ca9dd/test1D_cos.f90"><code class="xref download docutils literal notranslate"><span class="pre">test1D_cos.f90</span></code></a></td>
+<td>This program exemplifies the use of 1D transforms in P3DFFT++, for a 1D cosine transform, for real-valued arrays. 1D transforms are performed on 3D arrays, in the dimension specified as an argument. This could be an isolated 1D transform or a stage in a multidimensional transform. This function can do local transposition, i.e. arbitrary input and output memory ordering. However it does not do an inter-processor transpose (see test_transMPI for that).</td>
 </tr>
-<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/9cc435b09be1889ee3a45258b1ba18c9/test3D_c2c.f90"><code class="xref download docutils literal notranslate"><span class="pre">test3D_c2c.f90</span></code></a></td>
-<td>Test program for complex-to-complex forward and backward 3D FFT. Can be used as a correctness test and a timing test.</td>
+<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/d5a7c60d9ad810dd2b8e04cc9f165513/test1D_cos_complex.f90"><code class="xref download docutils literal notranslate"><span class="pre">test1D_cos_complex.f90</span></code></a></td>
+<td>This program exemplifies the use of 1D transforms in P3DFFT++, for a 1D cosine transform, for complex-valued arrays. 1D transforms are performed on 3D arrays, in the dimension specified as an argument. This could be an isolated 1D transform or a stage in a multidimensional transform. This function can do local transposition, i.e. arbitrary input and output memory ordering. However it does not do an inter-processor transpose (see test_transMPI for that).</td>
 </tr>
-<tr class="row-odd"><td>test_trans1D.f90</td>
-<td>Test program for real-to-complex and complex-to-real 1D FFT. User can choose an arbitrary dimension of transform. This function performs a local transpose in addition to 1D FFT, as needed. The transpose is specified by input and output memory order, which maps logical onto storage array dimensions. No inter-processor transpose takes place here. 1D transforms can be used by themselves or as a stage in a multidimensional transform.</td>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/fed7225467869047e4dd213df5e91546/test1D_r2c.f90"><code class="xref download docutils literal notranslate"><span class="pre">test1D_r2c.f90</span></code></a></td>
+<td>This program exemplifies the use of 1D transforms in P3DFFT++, for a 1D real-to-complex FFT. 1D transforms are performed on 3D arrays, in the dimension specified as an argument. This could be an isolated 1D transform or a stage in a multidimensional transform. This function can do local transposition, i.e. arbitrary input and output memory ordering. However it does not do an inter-processor transpose (see test_transMPI for that).</td>
+</tr>
+<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/67b2b7ed5088cc56acee336afdbd58ae/test3D_c2c.f90"><code class="xref download docutils literal notranslate"><span class="pre">test3D_c2c.f90</span></code></a></td>
+<td>This sample program illustrates the use of P3DFFT++ library for highly scalable parallel 3D FFT, for a 3D complex FFT.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/2d3efc63941bc05b9d50edd6c625a780/test3D_c2c_inplace.f90"><code class="xref download docutils literal notranslate"><span class="pre">test3D_c2c_inplace.f90</span></code></a></td>
+<td>This sample program illustrates the use of P3DFFT++ library for highly scalable parallel 3D FFT, for a 3D complex FFT. This is an in-place version (output overwrites input at the same location).</td>
+</tr>
+<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/3a11f90125c3dcdba19d8b91f854574d/test3D_r2c.f90"><code class="xref download docutils literal notranslate"><span class="pre">test3D_r2c.f90</span></code></a></td>
+<td>This sample program illustrates the use of P3DFFT++ library for highly scalable parallel 3D FFT, for a 3D real-to-complex FFT.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/3f87d77a59bc3084599c904efb897132/test3D_r2c_single.f90"><code class="xref download docutils literal notranslate"><span class="pre">test3D_r2c_single.f90</span></code></a></td>
+<td>This sample program illustrates the use of P3DFFT++ library for highly scalable parallel 3D FFT, for a 3D real-to-complex FFT.</td>
+</tr>
+<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/8d156dabb75bdf3fde76789faefb83ab/test_deriv.f90"><code class="xref download docutils literal notranslate"><span class="pre">test_deriv.f90</span></code></a></td>
+<td>This program exemplifies using P3DFFT++ library for taking a spectral derivative of a 3D array in a given dimension.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/ea3f0e1c23a548f5fb667f08b22529e2/test_deriv2.f90"><code class="xref download docutils literal notranslate"><span class="pre">test_deriv2.f90</span></code></a></td>
+<td>This program exemplifies using P3DFFT++ library for taking a spectral derivative of a 3D array in a given dimension. Derivative is implemented in this test program , based on 3D FFT obtained from P3DFFT++ library.</td>
 </tr>
 </tbody>
 </table>

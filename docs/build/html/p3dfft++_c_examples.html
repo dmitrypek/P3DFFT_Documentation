@@ -174,14 +174,35 @@
 <h1>P3DFFT++ C examples<a class="headerlink" href="#p3dfft-c-examples" title="Permalink to this headline">¶</a></h1>
 <table border="1" class="colwidths-auto docutils">
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/45dd0336155330ab293a66780286e9ca/test3D_r2c.c"><code class="xref download docutils literal notranslate"><span class="pre">test3D_r2c.c</span></code></a></td>
-<td>Test program for real-to-complex and complex-to-real 3D FFT. Can be used as a correctness test and a timing test.</td>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/eed0b025c2fdecfa155f2c03127874f4/test1D_cos.c"><code class="xref download docutils literal notranslate"><span class="pre">test1D_cos.c</span></code></a></td>
+<td>This program exemplifies the use of 1D transforms in P3DFFT++, using cosine 1D transform (DCT-1), for real-valued arrays. 1D transforms are performed on 3D arrays, in the dimension specified as an argument. This could be an isolated 1D transform or a stage in a multidimensional transform. This function can do local transposition, i.e. arbitrary input and output memory ordering. However it does not do an inter-processor transpose (see test_transMPI for that).</td>
 </tr>
-<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/47bf07243cbe8ef802ff97bbcdbd3fd9/test3D_c2c.c"><code class="xref download docutils literal notranslate"><span class="pre">test3D_c2c.c</span></code></a></td>
-<td>Test program for complex-to-complex forward and backward 3D FFT. Can be used as a correctness test and a timing test.</td>
+<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/ca85cc1a89b7d93cfce460333989c53a/test1D_cos_complex.c"><code class="xref download docutils literal notranslate"><span class="pre">test1D_cos_complex.c</span></code></a></td>
+<td>This program exemplifies the use of 1D transforms in P3DFFT++, using cosine 1D transform (DCT-1), for complex-valued arrays. 1D transforms are performed on 3D arrays, in the dimension specified as an argument. This could be an isolated 1D transform or a stage in a multidimensional transform. This function can do local transposition, i.e. arbitrary input and output memory ordering. However it does not do an inter-processor transpose (see test_transMPI for that).</td>
 </tr>
-<tr class="row-odd"><td>test_trans1D.c</td>
-<td>Test program for real-to-complex and complex-to-real 1D FFT. User can choose an arbitrary dimension of transform. This function performs a local transpose in addition to 1D FFT, as needed. The transpose is specified by input and output memory order, which maps logical onto storage array dimensions. No inter-processor transpose takes place here. 1D transforms can be used by themselves or as a stage in a multidimensional transform.</td>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/a42fa6c5618f6f31fba777f6d7cb1682/test1D_r2c.c"><code class="xref download docutils literal notranslate"><span class="pre">test1D_r2c.c</span></code></a></td>
+<td>This program exemplifies the use of 1D transforms in P3DFFT++, using real-to-complex (R2C) 1D transform. 1D transforms are performed on 3D arrays, in the dimension specified as an argument. This could be an isolated 1D transform or a stage in a multidimensional transform. This function can do local transposition, i.e. arbitrary input and output memory ordering. However it does not do an inter-processor transpose (see test_transMPI for that).</td>
+</tr>
+<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/4571e18ae5875a6fce1ec0ce7d734108/test3D_c2c.c"><code class="xref download docutils literal notranslate"><span class="pre">test3D_c2c.c</span></code></a></td>
+<td>This program exemplifies using P3DFFT++ library for 3D complex-to-complex FFT.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/d017ebecd628c5647a158b435fc57bdf/test3D_c2c_inplace.c"><code class="xref download docutils literal notranslate"><span class="pre">test3D_c2c_inplace.c</span></code></a></td>
+<td>This program exemplifies using P3DFFT++ library for 3D complex-to-complex FFT, as an in-place transform (output overwrites input, at the same array).</td>
+</tr>
+<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/f3e26bae821c34e609fd1b9a515a9d44/test3D_r2c.c"><code class="xref download docutils literal notranslate"><span class="pre">test3D_r2c.c</span></code></a></td>
+<td>This program exemplifies using P3DFFT++ library for 3D real-to-complex FFT.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/bfad8792fbbac68b74ae5b1c2b02e6d0/test3D_r2c_memord.c"><code class="xref download docutils literal notranslate"><span class="pre">test3D_r2c_memord.c</span></code></a></td>
+<td>This program exemplifies using P3DFFT++ library for 3D real-to-complex FFT.</td>
+</tr>
+<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/b3d1c85950606a6402c040c6e6f73c38/test3D_r2c_single.c"><code class="xref download docutils literal notranslate"><span class="pre">test3D_r2c_single.c</span></code></a></td>
+<td>This program exemplifies using P3DFFT++ library for 3D real-to-complex FFT.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference download internal" download="" href="_downloads/f49b5578da0354e816835fddc6a0c6e3/test_deriv.c"><code class="xref download docutils literal notranslate"><span class="pre">test_deriv.c</span></code></a></td>
+<td>This program exemplifies using P3DFFT++ library for taking a spectral derivative in a given dimension.</td>
+</tr>
+<tr class="row-even"><td><a class="reference download internal" download="" href="_downloads/49d0c9580c12dcc80b3064fc2a01594d/test_deriv2.c"><code class="xref download docutils literal notranslate"><span class="pre">test_deriv2.c</span></code></a></td>
+<td>This program exemplifies using P3DFFT++ library for taking a spectral derivative in a given dimension. Derivative is computed in this test program based on 3D FFT from P3DFFT++.</td>
 </tr>
 </tbody>
 </table>
