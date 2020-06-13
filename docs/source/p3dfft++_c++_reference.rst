@@ -5,6 +5,8 @@ P3DFFT++ C++ Reference
 
 Introduction
 ============
+Testing
+
 For C++ users all P3DFFT++ objects are defined within the ``p3dfft`` namespace, in order to avoid confusion with user-defined objects. For example, to initialize P3DFFT++ it is necessary to call the function ``p3dfft::setup()``, and to exit P3DFFT++ one should call ``p3dfft::cleanup()`` (alternatively, one can use namespace ``p3dfft`` and call ``setup()`` and ``cleanup()``). From here on in this document we will omit the implicit ``p3dfft::`` prefix from all C++ names.
 
 Setup and Grid layout
