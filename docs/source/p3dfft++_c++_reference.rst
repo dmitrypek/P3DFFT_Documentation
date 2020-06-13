@@ -10,8 +10,6 @@ For C++ users all P3DFFT++ objects are defined within the ``p3dfft`` namespace, 
 
 Setup and Grid layout
 =====================
-Testing2
-
 The public portion of the ``grid`` class is below:
 
 .. code-block:: cpp
