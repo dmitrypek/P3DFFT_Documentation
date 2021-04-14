@@ -7,7 +7,7 @@ P3DFFT++ is written in C++ and contains wrappers providing easy interfaces with 
 
 For C++ users all P3DFFT++ objects are defined within the ``p3dfft`` namespace, in order to avoid confusion with user-defined objects. For example, to initialize P3DFFT++ it is necessary to call the function ``p3dfft::setup()``, and to exit P3DFFT++ one should call ``p3dfft::cleanup()`` (alternatively, one can use namespace ``p3dfft`` and call ``setup()`` and ``cleanup()``). From here on in this document we will omit the implicit ``p3dfft::`` prefix from all C++ names. 
 
-In C and Fortran these functions become ``p3dfft_setup`` and ``p3dfft_cleanup``.  While C++ users can directly access ``P3DFFT`` objects such as ``grid`` class, C and Fortran users will access these through handles provided by corresponding wrappers (see more details below). 
+In C and Fortran these functions become ``p3dfft_setup`` and ``p3dfft_cleanup``.  While C++ users can directly access ``P3DFFT`` objects such as ``DataGrid`` class, C and Fortran users will access these through handles provided by corresponding wrappers (see more details below). 
 
 Data types
 ==========
@@ -82,7 +82,7 @@ Upon construction the ``DataGrid`` object defines several useful parameters, ava
         :header: "Member", "Descripton"
         :widths: auto
 
-        "*int Ldims[3]*", "Dimensions of the local portion of the ``grid`` (``ldims[0]=gdims[0]/pdims[0]`` etc). Note: these dimensions are specified in the order of logical grid dimensions and may differ from memory storage order, which is defined by *mem_order*."
+        "*int Ldims[3]*", "Dimensions of the local portion of the ``DataGrid`` (``ldims[0]=gdims[0]/pdims[0]`` etc). Note: these dimensions are specified in the order of logical grid dimensions and may differ from memory storage order, which is defined by *mem_order*."
         "*int nd*", "Number of dimensions of the processor grid (1, 2 or 3)."
         "*int L[3]*", "0 to 3 local dimensions (i.e. not split)."
         "*int D[3]*", "0 to 3 split dimensions."
@@ -133,11 +133,11 @@ For Fortran users the ``ProcGrid`` and ``DataGrid`` objects are represented as h
 
         grid1 = p3dfft_init_data_grid(ldims, glob_start, gdims, dim_conj_sym, pgrid, dmap, mem_order)
 
-This call initializes a C++ ``DataGrid`` object as a global variable and assigns an integer ID, returned in this example as ``grid1``. In addition this call also returns the dimensions of the local portion of the ``DataGrid`` (``ldims``) and the position of this portion within the global array (``glob_start``).
+This call initializes a C++ ``DataGrid`` object as a global variable and assigns an integer ID, returned in this example as ``grid1``. In addition this call also returns the dimensions of the local portion of the ``DataGrid`` (``Ldims``) and the position of this portion within the global array (``GlobStart``).
 
 Other elements of the C++ ``DataGrid`` object can be accessed through respective functions, such as ``p3dfft_grid_get_...``.
 
-To release a ``grid`` object, simply call:
+To release a ``DataGrid`` object, simply call:
 
 .. code-block:: fortran
 
@@ -151,7 +151,7 @@ P3DFFT++ aims to provide a versatile toolkit of algorithms/transforms in frequen
 
 Although syntax for C++, C and Fortran is different, using P3DFFT++ follows the same logic. P3DFFT++ functions in a way similar to FFTW: first the user needs to plan a transform, using a planner function once per each transform type. The planner function initializes the transform, creates a plan and stores all information relevant to this transform inside P3DFFT++. The users gets a handle referring to this plan (the handle is a class in C++, and an integer variable in C or Fortran) that can be later used to execute this transform, which can be applied multiple times. The handles can be released after use.
 
-In order to define and plan a transform (whether 1D or 3D, in C++, C or Fortran) one needs to first define initial and final ``grid`` objects. They contain all the necessary grid decomposition parameters. P3DFFT++ figures out the optimal way to transpose the data between these two ``grid`` configurations, assuming they are consistent (i.e. same grid size, number of tasks etc).
+In order to define and plan a transform (whether 1D or 3D, in C++, C or Fortran) one needs to first define initial and final ``DataGrid`` objects. They contain all the necessary grid decomposition parameters. P3DFFT++ figures out the optimal way to transpose the data between these two ``DataGrid`` configurations, assuming they are consistent (i.e. same grid size, number of tasks etc).
 
 One-dimensional (1D) Transforms
 ===============================
@@ -183,7 +183,7 @@ Below is an example of how a 1D transform can be called from C++. In this exampl
 
         transplan<double,complex_double> trans_f(gridIn, gridOut, R2C_FFT_D, dim, false);
 
-Here **gridIn** and **gridOut** are initial and final ``DataGrid`` objects, describing, among other things, initial and final memory ordering of the grid storage array (ordering can be the same or different for input and output). **dim** is the dimension/rank to be transformed. Note that this is the logical dimension rank (0 for X, 1 for Y, 2 for Z), and may not be the same as the storage dimension, which depends on ``mem_order`` member of **gridIn** and **gridOut**. The transform dimension of the ``grid`` is assumed to be MPI task-local. The second last parameter is a bool variable telling P3DFFT++ whether this is an in-place or out-of-place transform. Note that in C++ the ``P3DFFT_`` prefix for transform types is optional. 
+Here **gridIn** and **gridOut** are initial and final ``DataGrid`` objects, describing, among other things, initial and final memory ordering of the grid storage array (ordering can be the same or different for input and output). **dim** is the dimension/rank to be transformed. Note that this is the logical dimension rank (0 for X, 1 for Y, 2 for Z), and may not be the same as the storage dimension, which depends on ``mem_order`` member of **gridIn** and **gridOut**. The transform dimension of the ``DataGrid`` is assumed to be MPI task-local. The second last parameter is a bool variable telling P3DFFT++ whether this is an in-place or out-of-place transform. Note that in C++ the ``P3DFFT_`` prefix for transform types is optional. 
 
 When a ``transplan`` constructor is called as above, P3DFFT++ stores the parameters of the 1D transform and if needed, plans its execution (i.e. as in FFTW planning) and stores the plan handle. This needs to be done once per transform type. In order to execute the transform, simply call ``exec`` member of the class, e.g.:
 
@@ -325,7 +325,7 @@ To define and plan the 3D transform, use ``p3dfft_plan_3Dtrans`` function as fol
 
         mytrans = p3dfft_plan_3Dtrans(gridIn,gridOut,type,inplace,overwrite);
 
-Here **gridIn** and **gridOut** are pointers to initial and final ``grid`` objects (of type ``Grid``); **type** is the 3D transform type defined as above; **inplace** is an integer indicating an in-place transform if it's non-zero, out-of-place otherwise. **overwrite** is an integer defining if the input can be overwritten (non-zero; default is zero). In this example ``mytrans`` contains the handle to the 3D transform that can be executed (many times) as follows:
+Here **gridIn** and **gridOut** are pointers to initial and final ``DataGrid`` objects (of type ``Grid``); **type** is the 3D transform type defined as above; **inplace** is an integer indicating an in-place transform if it's non-zero, out-of-place otherwise. **overwrite** is an integer defining if the input can be overwritten (non-zero; default is zero). In this example ``mytrans`` contains the handle to the 3D transform that can be executed (many times) as follows:
 
 .. code-block:: c
 
