@@ -12,4 +12,3 @@ P3DFFT++ C examples
         ":download:`test3D_r2c_memord.c <../../downloadable/sample/C/test3D_r2c_memord.c>`", "This program exemplifies using P3DFFT++ library for 3D real-to-complex FFT."
         ":download:`test3D_r2c_single.c <../../downloadable/sample/C/test3D_r2c_single.c>`", "This program exemplifies using P3DFFT++ library for 3D real-to-complex FFT. This is a single precision version of test3D_r2c.c example."
         ":download:`test_deriv.c <../../downloadable/sample/C/test_deriv.c>`", "This program exemplifies using P3DFFT++ library for taking a spectral derivative in a given dimension."
-        ":download:`test_deriv2.c <../../downloadable/sample/C/test_deriv2.c>`", "This program exemplifies using P3DFFT++ library for taking a spectral derivative in a given dimension. Derivative is computed in this test program based on 3D FFT from P3DFFT++."
