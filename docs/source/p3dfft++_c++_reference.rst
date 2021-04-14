@@ -10,46 +10,61 @@ For C++ users all P3DFFT++ objects are defined within the ``p3dfft`` namespace, 
 
 Setup and Grid layout
 =====================
-The public portion of the ``grid`` class is below:
+The public portion of the ``ProcGrid`` class is below:
 
 .. code-block:: cpp
 
-        class grid {
+   class ProcGrid {
+
+    public:
+        int taskid,numtasks;
+        int nd;  //number of dimensions the volume is split over
+	int ProcDims[3];  //Processor grid size (in inverse order of split dimensions\
+	     , i.e. rows first, then columns etc
+	int grid_id_cart[3];
+	MPI_Comm mpi_comm_glob; // Global MPi communicator we are starting from
+	MPI_Comm mpi_comm_cart;
+	MPI_Comm mpicomm[3]; //MPI communicators for each dimension
+
+	ProcGrid(int procdims[3],MPI_Comm mpi_comm_init);
+		      
+grid constructor
+--------------------
+	    
+	    The public portion of the ``DataGrid`` class is below:
+
+.. code-block:: cpp
+
+        class DataGrid {
 
         ...
 
           public :
 
-            int taskid,numtasks;
 
             int nd; //number of dimensions the volume is split over
 
-            int gdims[3]; //Global dimensions
+            int Gdims[3]; //Global dimensions
 
             dim_conj_sym; // dimension of the array in which a little less than half of the elements are omitted due to conjugate symmetry. This argument should be non-negative only for complex-valued arrays resulting from real-to-complex FFT in the given dimension.
 
-            int mem_order[3]; //Memory ordering inside the data volume
-            int ldims[3]; //Local dimensions on THIS processor
-            int pgrid[3]; //Processor grid
-            int proc_order[3]; //Ordering of tasks in processor grid, e.g. (1,2,3) : first dimension - adjacent tasks,then second, then third dimension
-            int P[3]; //Processor grid size (in inverse order of split dimensions, i.e. rows first, then columns etc
+            int MemOrder[3]; //Memory ordering inside the data volume
+            int Ldims[3]; //Local dimensions on THIS processor
+            int Pdims[3]; // Dimensions of Processor grid (as mapped onto data dimensions)
+            int Dmap[3]; // Mapping of data dimensions onto processor dimensions
             int D[3]; //Ranks of Dimensions of physical grid split over rows and columns correspondingly
             int L[3]; //Rank of Local dimension (p=1)
+	    ProcGrid *Pgrid;
             int grid_id[3]; //Position of this pencil/cube in the processor grid
-            int grid_id_cart[3];
-            int glob_start[3]; // Starting coords of this cube in the global grid
-            MPI_Comm mpi_comm_glob; // Global MPi communicator we are starting from
-            MPI_Comm mpi_comm_cart;
-            MPI_Comm mpicomm[3]; //MPI communicators for each dimension
+            int GlobStart[3]; // Starting coords of this cube in the global grid
             // int (*st)[3],(*sz)[3],(*en)[3]; // Lowest, size and uppermost location in 3D, for each processor in subcommunicator
             int **st[3],**sz[3],**en[3]; // Lowest, size and uppermost location in 3D, for each processor in subcommunicator 
 
             bool is_set;
-            grid(int gdims_[3],int pgrid_[3],int proc_order_[3],int mem_order[3],
-            MPI_Comm mpicomm_);
-            grid(const grid &rhs);
-            grid() {};
-            ~grid();
+            DataGrid(int gdims_[3],ProcGrid *pgrid,int dmap[3],int mem_order[3]);
+            DataGrid(const DataGrid &rhs);
+            DataGrid() {};
+            ~DataGrid();
             void set_mo(int mo[3]) {for(int i=0;i<3;i++) mem_order[i] = mo[i];};
         ...
         };
@@ -58,9 +73,9 @@ grid constructor
 --------------------
 .. code-block:: cpp
 
-        grid(int gdims[3],int dim_conj_sym,int pgrid[3],int proc_order[3],int mem_order[3],MPI_Comm mpicomm);
+        DataGrid::DataGrid(int gdims[3],int dim_conj_sym,ProcGrid *pgrid,int dmap[3],int mem_order[3])
 
-**Function**: Initializes a new ``grid`` with specified parameters.
+**Function**: Initializes a new ``DataGrid`` with specified parameters.
 
 .. csv-table::
         :header: "Argument", "Description"
@@ -68,16 +83,16 @@ grid constructor
 
         "*gdims*", "Three global grid dimensions (logical order - X, Y, Z)"
         "*dim_conj_sym*", "Dimension of conjugate symmetry, non-negative only for complex arrays resulting from real-to-complex FFT in the given dimension. This is logical, not storage, dimension, with valid numbers 0 - 2, and -1 implying no conjugate symmetry."
-        "*pgrid*", "Up to three dimensions of processor grid, decomposing the global grid array. Value =1 means the grid is not decomposed but is local in that logical dimension."
-        "*proc_order*", "A permutation of the 3 integers: 0, 1 and 2. Specifies the topology of processor grid on the interconnect. The dimension with lower value means the MPI tasks in that dimension are closer in ranks, e.g. value=0 means the ranks are adjacent (``stride=1``), value=1 means they are speard out with the stride equal to the pgrid value of the dimension with ``stride=1`` etc"
+        "*pgrid*", "A pointer to a processor grid this data grid is living on."
+        "*dmap*","A mapping of data dimensions onto processor grid dimensions. For example, dmap=(1,0,2) implies second data dimension being spanned by the first processor grid dimension, first data dimension being spanned by the second processor grid dimension, and the third data dimension is mapped onto third processor dimension."
         "*mem_order*", "A permutation of the 3 integers: 0, 1 and 2. Specifies mapping of the logical dimension and memory storage dimensions for local memory for each MPI task. ``mem_order[i0] = 0`` means that the i0's logical dimension is stored with ``stride=1`` in memory. Similarly, ``mem_order[i1] = 1`` means that i1's logical dimension is stored with ``stride=ldims[i0]`` etc"
-        "*mpicomm*", "The MPI communicator in which this ``grid`` lives"
+        "*mpicomm*", "The MPI communicator in which this ``DataGrid`` lives"
 
 P3DFFT++ Transforms
 ===================
 P3DFFT++ functions in a way similar to FFTW: first the user needs to plan a transform, using a planner function once per each transform type. The planner function initializes the transform, creates a plan and stores all information relevant to this transform inside P3DFFT++. The users gets a handle referring to this plan (which is a class in C++) that can be later used to execute this transform, and can be applied multiple times. The handles can be released after use.
 
-In order to define and plan a transform (whether 1D or 3D) one needs to first define initial and final ``grid`` objects. They contain all the necessary grid decomposition parameters. P3DFFT++ figures out the optimal way to transpose the data between these two grid configurations, assuming they are consistent (i.e. same grid size, number of tasks etc).
+In order to define and plan a transform (whether 1D or 3D) one needs to first define initial and final ``DataGrid`` objects. They contain all the necessary grid decomposition parameters. P3DFFT++ figures out the optimal way to transpose the data between these two grid configurations, assuming they are consistent (i.e. same grid size, number of tasks etc).
 
 One-Dimensional (1D) Transforms
 -------------------------------
@@ -171,10 +186,10 @@ Two constructors are provided.
         :header: "Argument", "Description"
         :widths: auto
 
-        "*gridIn*", "Initial ``grid`` descriptor"
-        "*gridOut*", "Final ``grid`` descriptor"
+        "*gridIn*", "Initial ``DataGrid`` descriptor"
+        "*gridOut*", "Final ``DataGrid`` descriptor"
         "*type*", "The type of the 1D transform (either as a predefined integer parameter, or as a class ``gen_trans_type``."
-        "*d*", "The dimension to be transformed. Note that this is the logical dimension rank (0 for X, 1 for Y, 2 for Z), and may not be the same as the storage dimension, which depends on ``mem_order`` member of *gridIn* and *gridOut*. The transform dimension of the ``grid`` is assumed to be MPI task-local."
+        "*d*", "The dimension to be transformed. Note that this is the logical dimension rank (0 for X, 1 for Y, 2 for Z), and may not be the same as the storage dimension, which depends on ``mem_order`` member of *gridIn* and *gridOut*. The transform dimension of the ``DataGrid`` is assumed to be MPI task-local."
         "*inplace*", "``True`` for in-place transform, ``false`` for out-of-place."
 
 Releasing 1D transform handle
@@ -193,7 +208,7 @@ Executing 1D transform
         :header: "Argument", "Description"
         :widths: auto
 
-        "*In*, *Out*", "Pointers to input and output arrays, cast as ``pointer`` to ``char``. They contain the local portion of the 3D input and output arrays, arranged as a contiguous sequence of numbers according to local grid dimensions and the memory order of initial and final ``grid`` objects respectively."
+        "*In*, *Out*", "Pointers to input and output arrays, cast as ``pointer`` to ``char``. They contain the local portion of the 3D input and output arrays, arranged as a contiguous sequence of numbers according to local grid dimensions and the memory order of initial and final ``DataGrid`` objects respectively."
 
 .. note:: If the transform is out-of-place, then these arrays must be non-overlapping. The execution can be performed many times with the same handle and same or different input and output arrays.
 
@@ -201,11 +216,11 @@ Three-dimensional Transforms
 ----------------------------
 Three-dimensional (3D) transforms consist of three one-dimensional transforms in sequence (one for each dimension), interspersed by inter-processor transposes. In order to specify a 3D transform, three main things are needed:
 
-1. Initial ``grid`` (as described above, ``grid`` object defines all of the specifics of grid dimensions, memory ordering and distribution among processors).
-2. Final ``grid``.
+1. Initial ``DataGrid`` (as described above, ``DataGrid`` object defines all of the specifics of grid dimensions, memory ordering and distribution among processors).
+2. Final ``DataGrid``.
 3. The type of 3D transform.
 
-The final ``grid`` may or may not be the same as the initial ``grid``. First, in real-to-complex and complex-to-real transforms the global grid dimensions change for example from (n0, n1, n2) to (n0/2+1 ,n1, n2), since most applications attempt to save memory by using the conjugate symmetry of the Fourier transform of real data. Secondly, the final ``grid`` may have different processor distribution and memory ordering, since for example many applications with convolution and those solving partial differential equations do not need the initial ``grid`` configuration in Fourier space. The flow of these applications is typically 1) transform from physical to Fourier space, 2) apply convolution or derivative calculation in Fourier space, and 3) inverse FFT to physical space. Since forward FFT's last step is 1D FFT in the third dimension, it is more efficient to leave this dimension local and stride-1, and since the first step of the inverse FFT is to start with the third dimension 1D FFT, this format naturally fits the algorithm and results in big savings of time due to elimination of several extra transposes.
+The final ``DataGrid`` may or may not be the same as the initial ``DataGrid``. First, in real-to-complex and complex-to-real transforms the global grid dimensions change for example from (n0, n1, n2) to (n0/2+1 ,n1, n2), since most applications attempt to save memory by using the conjugate symmetry of the Fourier transform of real data. Secondly, the final ``DataGrid`` may have different processor distribution and memory ordering, since for example many applications with convolution and those solving partial differential equations do not need the initial ``DataGrid`` configuration in Fourier space. The flow of these applications is typically 1) transform from physical to Fourier space, 2) apply convolution or derivative calculation in Fourier space, and 3) inverse FFT to physical space. Since forward FFT's last step is 1D FFT in the third dimension, it is more efficient to leave this dimension local and stride-1, and since the first step of the inverse FFT is to start with the third dimension 1D FFT, this format naturally fits the algorithm and results in big savings of time due to elimination of several extra transposes.
 
 In order to define the 3D transform type one needs to know three 1D transform types comprising the 3D transform. In C++ 3D transform type is interfaced through a class ``trans_type3D``.
 
@@ -245,8 +260,8 @@ In C++ 3D transforms are handled through class template ``transform3D``, with in
         :header: "Argument", "Description"
         :widths: auto
 
-        "*gridIn*", "Initial ``grid`` configuration"
-        "*gridOut*", "Final ``grid`` configuration"
+        "*gridIn*", "Initial ``DataGrid`` configuration"
+        "*gridOut*", "Final ``DataGrid`` configuration"
         "*type*", "pointer to a 3D transform type class"
         "*inplace*", "``true`` is this is an in-place transform; ``false`` if an out-of-place transform."
         "*Overwrite* (optional)", "Indicates whether input can be overwritten (``true`` = yes, default is no)"
