@@ -10,6 +10,10 @@ For C++ users all P3DFFT++ objects are defined within the ``p3dfft`` namespace, 
 
 Setup and Grid layout
 =====================
+
+ProcGrid constructor
+--------------------
+
 The public portion of the ``ProcGrid`` class is below:
 
 .. code-block:: cpp
@@ -28,7 +32,7 @@ The public portion of the ``ProcGrid`` class is below:
 
 	ProcGrid(int procdims[3],MPI_Comm mpi_comm_init);
 		      
-grid constructor
+DataGrid constructor
 --------------------
 	    
 	    The public portion of the ``DataGrid`` class is below:
