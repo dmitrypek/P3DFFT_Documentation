@@ -21,11 +21,26 @@ p3dfft_cleanup
 
 **Function**: Called once before exit and after the use to free up P3DFFT++ structures.
 
-p3dfft_init_grid
+p3dfft_init_proc_grid
 ----------------
 .. code-block:: c
 
-        Grid *p3dfft_init_grid(int gdims[3],int dim_conj_sym,int pgrid[3],int proc_order[3],int mem_order[3],MPI_Comm mpicomm);
+        int p3dfft_init_proc_grid(int pdims[3],MPI_Comm mpicomm)
+
+**Function**: Initializes a new grid with specified parameters.
+
+.. csv-table::
+        :header: "Argument", "Description"
+        :widths: auto
+	   
+	   "*pdims*", "The dimensions of the 3D processor grid. Value of 1 implies the corresponding dimension is local. These are stored in Fortran (row-major) order, i.e. adjacent MPI tasks are mapped onto the lowest index of the processor grid.
+	   "*mpicomm*", "The MPI communicator this processor grid is living on. The library makes it own copy of the communicator, in order to avoid interference with the user program communication."
+
+p3dfft_init_data_grid
+----------------
+.. code-block:: c
+
+        Grid *p3dfft_init_data_grid(int gdims[3],int dim_conj_sym,int pgrid,int dmap[3],int mem_order[3])
 
 **Function**: Initializes a new grid with specified parameters.
 
@@ -33,55 +48,63 @@ p3dfft_init_grid
         :header: "Argument", "Description"
         :widths: auto
 
-        "*gdims*", "Three global grid dimensions (logical order - X, Y, Z)."
+	"*gdims*", "Three global grid dimensions (logical order - X, Y, Z)."
         "*dim_conj_sym*", "Dimension of the array in which a little less than half of the elements are omitted due to conjugate symmetry. This argument should be non-negative only for complex-valued arrays resulting from real-to-complex FFT in the given dimension."
-        "*pgrid*", "Up to three dimensions of processor grid, decomposing the global grid array. Value =1 means the grid is not decomposed but is local in that logical dimension."
-        "*proc_order*", "A permutation of the 3 integers: 0, 1 and 2. Specifies the topology of processor grid on the interconnect. The dimension with lower value means the MPI tasks in that dimension are closer in ranks, e.g. value=0 means the ranks are adjacent (stride=1), value=1 means they are speard out with the stride equal to the pgrid value of the dimension with stride=1 etc."
+        "*pgrid*", "The processor grid ID, on which this data grid is living on."
+        "*dmap*", "A mapping of data dimensions onto processor grid dimensions. For example, dmap=(1,0,2) implies second data dimension being spanned by the first processor grid dimension, first data dimension being spanned by the second processor grid dimension, and the third data dimension is mapped onto third processor dimension."
         "*mem_order*", "A permutation of the 3 integers: 0, 1 and 2. Specifies mapping of the logical dimension and memory storage dimensions for local memory for each MPI task. ``mem_order[i0] = 0`` means that the i0's logical dimension is stored with ``stride=1`` in memory. Similarly, ``mem_order[i1] = 1`` means that i1's logical dimension is stored with ``stride=ldims[i0]`` etc."
-        "*mpicomm*", "The MPI communicator in which this grid lives."
 
-**Return value**: A pointer to the newly initialized ``Grid`` structure that can later be used for grid operations and to get information about the grid.
+**Return value**: A pointer to the newly initialized ``DataGrid`` structure that can later be used for grid operations and to get information about the grid.
 
-The ``Grid`` structure is defined as follows:
+The ``DataGrid`` structure is defined as follows:
 
 .. code-block:: c
 
         struct Grid_struct {
-            int taskid,numtasks;
             int nd; //number of dimensions the volume is split over
-            int gdims[3]; //Global dimensions
+            int Gdims[3]; //Global dimensions
 
             int dim_conj_sym; // Dimension of conjugate symmetry where we store N/2+1 of the data after Real-to-complex transform due to conjugate symmety;(-1 for none)
 
-            int mem_order[3]; //Memory ordering inside the data volume
-            int ldims[3]; //Local dimensions on THIS processor
-            int pgrid[3]; //Processor grid
-            int proc_order[3]; //Ordering of tasks in processor grid, e.g. (1,2,3) : first dimension - adjacent tasks,then second, then third dimension
-            int P[3]; //Processor grid size (in inverse order of split dimensions, i.e. rows first, then columns etc
+            int MemOrder[3]; //Memory ordering inside the data volume
+            int Ldims[3]; //Local dimensions on THIS processor
+            int pgrid; //Processor grid
+            int dmapr[3]; //Mapping of the data grid dimensions onto processor grid
             int D[3]; //Ranks of Dimensions of physical grid split over rows and columns correspondingly
             int L[3]; //Rank of Local dimension (p=1)
             int grid_id[3]; //Position of this pencil/cube in the processor grid
-            int grid_id_cart[3];
-            int glob_start[3]; // Starting coords of this cube in the global grid
-            MPI_Comm mpi_comm_glob; // Global MPi communicator we are starting from
-            MPI_Comm mpi_comm_cart;
-            MPI_Comm mpicomm[3]; //MPI communicators for each dimension
+	    int ProcDims[3]; // Processor grid dimensions, as mapped onto data dimensions
+        int GlobStart[3]; // Starting coords of this cube in the global grid
         } ;
         typedef struct Grid_struct Grid;
 
-p3dfft_free_grid
+p3dfft_free_proc_grid
 ----------------
 .. code-block:: c
 
-        void p3dfft_free_grid(Grid *gr)
+        void p3dfft_free_proc_grid(int pgrid)
 
-**Function**: Frees up a grid.
+**Function**: Frees up a processor grid.
 
 .. csv-table::
         :header: "Argument", "Description"
         :widths: auto
 
-        "*gr*", "pointer to ``Grid`` structure."
+        "*pgrid*", "ID of the ``ProcGrid`` structure to be freed."
+
+	p3dfft_free_grid
+----------------
+.. code-block:: c
+
+        void p3dfft_free_data_grid(Grid *gr)
+
+**Function**: Frees up a data grid.
+
+.. csv-table::
+        :header: "Argument", "Description"
+        :widths: auto
+
+        "*gr*", "pointer to ``DataGrid`` structure."
 
 One-dimensional transforms
 ==========================
@@ -115,7 +138,7 @@ The following predefined 1D transforms are available:
         :header: "Argument", "Description"
         :widths: auto
 
-        "*gridIn*, *gridOut*", "Pointers to the C equivalent of P3DFFT++ ``grid`` object (initial and final)"
+        "*gridIn*, *gridOut*", "Pointers to the C equivalent of P3DFFT++ ``DataGrid`` object (initial and final)"
         "*dim*", "The logical dimension of the transform (``0``, ``1`` or ``2``). Note that this is the logical dimension rank (``0`` for X, ``1`` for Y, ``2`` for Z), and may not be the same as the storage dimension, which depends on ``mem_order`` member of **gridIn** and **gridOut**. The transform dimension of the grid is assumed to be MPI task-local."
         "*inplace*", "Indicates that this is not an in-place transform (a non-zero argument would indicate in-place)."
 
@@ -190,7 +213,7 @@ In this example ``type_rcc`` will describe the real-to-complex (R2C) 3D transfor
         :header: "Argument", "Description"
         :widths: auto
 
-        "*gridIn*, *gridOut*", "Pointers to initial and final ``grid`` objects"
+        "*gridIn*, *gridOut*", "Pointers to initial and final ``DataGrid`` objects"
         "*type3D*", "The 3D transform type defined as above"
         "*inplace*", "An integer indicating an in-place transform if it's non-zero, out-of-place otherwise."
         "*overwrite* (optional)", "Non-zero when it is OK to overwrite the input array (optional argument, default is ``0``)"
@@ -216,7 +239,7 @@ In this example ``type_rcc`` will describe the real-to-complex (R2C) 3D transfor
         :header: "Argument", "Description"
         :widths: auto
 
-        "*In*, *Out*", "Pointers to input and output arrays, assumed to be the local portion of the 3D grid array, stored contiguously in memory, consistent with definition of ``Grid`` in planning stage."
+        "*In*, *Out*", "Pointers to input and output arrays, assumed to be the local portion of the 3D grid array, stored contiguously in memory, consistent with definition of ``DataGrid`` in planning stage."
 
 .. note::
 
@@ -237,7 +260,7 @@ In this example ``type_rcc`` will describe the real-to-complex (R2C) 3D transfor
         :header: "Argument", "Description"
         :widths: auto
 
-        "*In*, *Out*", "Pointers to input and output arrays, assumed to be the local portion of the 3D grid array stored contiguously in memory, consistent with definition of ``Grid`` in planning stage."
+        "*In*, *Out*", "Pointers to input and output arrays, assumed to be the local portion of the 3D grid array stored contiguously in memory, consistent with definition of ``DataGrid`` in planning stage."
         "*idir*", "The dimension where derivative is to be taken in (this is logical dimension, NOT storage mapped). Valid values are ``0`` - ``2``."
 
 .. note::
