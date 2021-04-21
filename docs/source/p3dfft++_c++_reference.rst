@@ -88,7 +88,7 @@ grid constructor
         "*gdims*", "Three global grid dimensions (logical order - X, Y, Z)"
         "*dim_conj_sym*", "Dimension of conjugate symmetry, non-negative only for complex arrays resulting from real-to-complex FFT in the given dimension. This is logical, not storage, dimension, with valid numbers 0 - 2, and -1 implying no conjugate symmetry."
         "*pgrid*", "A pointer to a processor grid this data grid is living on."
-        "*dmap*","A mapping of data dimensions onto processor grid dimensions. For example, dmap=(1,0,2) implies second data dimension being spanned by the first processor grid dimension, first data dimension being spanned by the second processor grid dimension, and the third data dimension is mapped onto third processor dimension."
+        "*dmap*","A permutation of the 3 integers: ``0``, ``1`` and ``2``. Specifies mapping of data dimensions onto processor grid dimensions. For example, dmap=(1,0,2) implies second data dimension being spanned by the first processor grid dimension, first data dimension being spanned by the second processor grid dimension, and the third data dimension is mapped onto third processor dimension."
         "*mem_order*", "A permutation of the 3 integers: 0, 1 and 2. Specifies mapping of the logical dimension and memory storage dimensions for local memory for each MPI task. ``mem_order[i0] = 0`` means that the i0's logical dimension is stored with ``stride=1`` in memory. Similarly, ``mem_order[i1] = 1`` means that i1's logical dimension is stored with ``stride=ldims[i0]`` etc"
         "*mpicomm*", "The MPI communicator in which this ``DataGrid`` lives"
 

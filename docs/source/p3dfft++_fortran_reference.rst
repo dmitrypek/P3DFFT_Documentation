@@ -5,7 +5,7 @@ P3DFFT++ Fortran Reference
 
 Setup and Grid Layout
 =====================
-In Fortran the grid structure is hidden and is operated on by integer handles.
+In Fortran grid structures are hidden and is operated on by integer handles.
 
 p3dfft_setup
 ------------
@@ -23,15 +23,32 @@ p3dfft_cleanup
 
 **Function**: Called once before exit and after the use to free up P3DFFT++ structures.
 
-p3dfft_init_grid
+p3dfft_init_proc_grid
 ----------------
 .. code-block:: fortran
 
-        function p3dfft_init_grid(ldims, glob_start, gdims, dim_conj_sym, pgrid, proc_order, mem_order, mpicomm)
+        function p3dfft_init_proc_grid(integer pdims(3),integer mpicomm)
 
-        integer(C_INT) p3dfft_init_grid
+        integer(C_INT) p3dfft_proc_data_grid
 
-**Function**: Initializes a new grid
+	**Function**: Initializes a new processor grid with specified parameters. Returns handle of the initialized processor grid. 
+
+.. csv-table::
+        :header: "Argument", "Description"
+        :widths: auto
+	   
+	   "*pdims*", "The dimensions of the 3D processor grid. Value of 1 implies the corresponding dimension is local. These are stored in Fortran (row-major) order, i.e. adjacent MPI tasks are mapped onto the lowest index of the processor grid.
+	   "*mpicomm*", "The MPI communicator this processor grid is living on. The library makes it own copy of the communicator, in order to avoid interference with the user program communication."
+
+	   p3dfft_init_data_grid
+----------------
+.. code-block:: fortran
+
+        function p3dfft_init_data_grid(ldims, glob_start, gdims, dim_conj_sym, pgrid, dmap, mem_order)
+
+        integer(C_INT) p3dfft_init_data_grid
+
+**Function**: Initializes a new data grid. Returns handle of the initialized data grid. 
 
 .. csv-table:: **IN**
         :header: "Argument", "Description"
@@ -39,10 +56,9 @@ p3dfft_init_grid
 
         "*integer gdims(3)*", "Three global grid dimensions (logical order - X, Y, Z)."
         "*integer dim_conj_sym*", "Dimension of the array in which a little less than half of the elements are omitted due to conjugate symmetry. This argument should be non-negative only for complex-valued arrays resulting from real-to-complex FFT in the given dimension."
-        "*integer pgrid(3)*", "Up to three dimensions of processor grid, decomposing the global grid array. Value = 1 means the grid is not decomposed but is local in that logical dimension."
-        "*integer proc_order(3)*", "A permutation of the 3 integers: ``0``, ``1`` and ``2``. Specifies the topology of processor grid on the interconnect. The dimension with lower value means the MPI tasks in that dimension are closer in ranks, e.g. value=0 means the ranks are adjacent (stride=1), value=1 means they are speard out with the stride equal to the pgrid value of the dimension with stride=1 etc."
+        "*integer pgrid*", "Processor grid handle"
+        "*integer dmap(3)*", "A permutation of the 3 integers: ``0``, ``1`` and ``2``. Specifies the mapping of data grid onto processor grid. For example, dmap=(1,0,2) implies second data dimension being spanned by the first processor grid dimension, first data dimension being spanned by the second processor grid dimension, and the third data dimension is mapped onto third processor dimension."
         "*integer mem_order(3)*", "A permutation of the 3 integers: 0, 1 and 2. Specifies mapping of the logical dimension and memory storage dimensions for local memory for each MPI task. ``mem_order(i0) = 0`` means that the i0's logical dimension is stored with ``stride=1`` in memory. Similarly, ``mem_order(i1) = 1`` means that i1's logical dimension is stored with ``stride=ldims(i0)`` etc."
-        "*integer mpicomm*", "The MPI communicator in which this grid lives."
 
 .. csv-table:: **OUT**
         :header: "Argument", "Description"
@@ -53,19 +69,33 @@ p3dfft_init_grid
 
 **Return value**: An integer handle of the initialized grid, to be used later by various routines accessing the grid.
 
-p3dfft_free_grid_f
+p3dfft_free_data_grid
 ------------------
 .. code-block:: fortran
 
-        subroutine p3dfft_free_grid_f(grid)
+        subroutine p3dfft_free_data_grid(grid)
 
-**Function**: Frees the grid handle.
+**Function**: Frees the data grid specified by its handle.
 
 .. csv-table:: **IN**
         :header: "Argument", "Description"
         :widths: auto
 
-        "*integer(C_INT) grid*", "The handle of the grid to be freed."
+        "*integer(C_INT) grid*", "The handle of the data grid to be freed."
+
+	p3dfft_free_proc_grid
+------------------
+.. code-block:: fortran
+
+        subroutine p3dfft_free_proc_grid(Pgrid)
+
+**Function**: Frees the processor grid specified by its handle.
+
+.. csv-table:: **IN**
+        :header: "Argument", "Description"
+        :widths: auto
+
+        "*integer(C_INT) Pgrid*", "The handle of the processor grid to be freed."
 
 One-dimensional (1D) Transforms
 ===============================
@@ -99,8 +129,8 @@ The following predefined 1D transforms are available:
         :header: "Argument", "Description"
         :widths: auto
 
-        "*integer gridIn*", "Initial grid handle."
-        "*integer gridOut*", "Destination grid handle."
+        "*integer gridIn*", "Initial data grid handle."
+        "*integer gridOut*", "Destination data grid handle."
         "*integer type*", "1D transform type."
         "*integer dim*", "Dimension rank of the 3D array which should be transformed. valid values are ``0``, ``1``, or ``2``. Note that this is the logical dimension rank (``0`` for X, ``1`` for Y, ``2`` for Z), and may not be the same as the storage dimension, which depends on ``mem_order`` member of **gridIn** and **gridOut**. The transform dimension of the grid is assumed to be MPI task-local."
         "*integer inplace*", "Nonzero value if the transform is in-place."
@@ -145,8 +175,8 @@ Three-dimensional transforms
         :header: "Argument", "Description"
         :widths: auto
 
-        "*integer gridIn*", "Initial grid handle"
-        "*integer gridOut*", "Destination grid handle"
+        "*integer gridIn*", "Initial data grid handle"
+        "*integer gridOut*", "Destination data grid handle"
         "*integer type(3)*", "Three 1D transform types making up the desired 3D transform"
         "*integer inplace*", "If nonzero, the transform takes place in-place"
         "*integer overwrite*", "Nonzero if the input can be overwritten"
@@ -189,7 +219,7 @@ Three-dimensional transforms
         :header: "Argument", "Description"
         :widths: auto
 
-        "*In*, *Out*", "Input and output arrays, assumed to be the local portion of the 3D grid array stored contiguously in memory, consistent with definition of ``Grid`` in planning stage."
+        "*In*, *Out*", "Input and output arrays, assumed to be the local portion of the 3D grid array stored contiguously in memory, consistent with definition of ``grid`` in planning stage."
         "*integer idir*", "The dimension where derivative is to be taken in (this is logical dimension, NOT storage mapped). Valid values are ``0`` - ``2``."
 
 .. note::

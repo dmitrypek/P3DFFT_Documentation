@@ -42,7 +42,7 @@ p3dfft_init_data_grid
 
         Grid *p3dfft_init_data_grid(int gdims[3],int dim_conj_sym,int pgrid,int dmap[3],int mem_order[3])
 
-**Function**: Initializes a new grid with specified parameters.
+**Function**: Initializes a new data grid with specified parameters.
 
 .. csv-table::
         :header: "Argument", "Description"
@@ -51,7 +51,7 @@ p3dfft_init_data_grid
 	"*gdims*", "Three global grid dimensions (logical order - X, Y, Z)."
         "*dim_conj_sym*", "Dimension of the array in which a little less than half of the elements are omitted due to conjugate symmetry. This argument should be non-negative only for complex-valued arrays resulting from real-to-complex FFT in the given dimension."
         "*pgrid*", "The processor grid ID, on which this data grid is living on."
-        "*dmap*", "A mapping of data dimensions onto processor grid dimensions. For example, dmap=(1,0,2) implies second data dimension being spanned by the first processor grid dimension, first data dimension being spanned by the second processor grid dimension, and the third data dimension is mapped onto third processor dimension."
+        "*dmap*", "A permutation of the 3 integers: ``0``, ``1`` and ``2``. Specifies mapping of data dimensions onto processor grid dimensions. For example, dmap=(1,0,2) implies second data dimension being spanned by the first processor grid dimension, first data dimension being spanned by the second processor grid dimension, and the third data dimension is mapped onto third processor dimension."
         "*mem_order*", "A permutation of the 3 integers: 0, 1 and 2. Specifies mapping of the logical dimension and memory storage dimensions for local memory for each MPI task. ``mem_order[i0] = 0`` means that the i0's logical dimension is stored with ``stride=1`` in memory. Similarly, ``mem_order[i1] = 1`` means that i1's logical dimension is stored with ``stride=ldims[i0]`` etc."
 
 **Return value**: A pointer to the newly initialized ``DataGrid`` structure that can later be used for grid operations and to get information about the grid.
@@ -84,13 +84,13 @@ p3dfft_free_proc_grid
 
         void p3dfft_free_proc_grid(int pgrid)
 
-**Function**: Frees up a processor grid.
+**Function**: Frees up a processor grid, specified by its handle.
 
 .. csv-table::
         :header: "Argument", "Description"
         :widths: auto
 
-        "*pgrid*", "ID of the ``ProcGrid`` structure to be freed."
+        "*pgrid*", "Handle of the ``ProcGrid`` structure to be freed."
 
 	p3dfft_free_grid
 ----------------
