@@ -1,6 +1,6 @@
 P3DFFT++ Documentation
 ======================
-The new generation of P3DFFT library (dubbed P3DFFT++ or P3DFFT v.3) is a generalization of the concept of P3DFFT for more arbitrary data formats and transform functions. It is now in beta testing and is available from its `GitHub page <https://github.com/sdsc/p3dfft.3>`_. Language-specific reference is provided in Tutorial as well as in separate Reference documents (see C++, C and Fortran).
+The new generation of P3DFFT library (dubbed P3DFFT++ or P3DFFT v.3) is a generalization of the concept of P3DFFT for more arbitrary data formats and transform functions. It is now in beta testing and is available from its `GitHub page <https://github.com/sdsc/p3dfft.3>`_. Language-specific reference is provided in Tutorial as well as in separate Reference documents (see C++, C and Fortran). Makefile examples are provided for each language to illustrate how P3DFFT++ is to be linked with a user program.
 
 .. toctree::
         :maxdepth: 1
