@@ -8,13 +8,13 @@ This library uses 2D, or pencil, decomposition. This overcomes an important limi
 
 **P3DFFT**
 
-P3DFFT is written in Fortran90 and is optimized for parallel performance. It uses Message Passing Interface (MPI) for interprocessor communication, and starting from v.2.7.5 there is a multithreading option for hybrid MPI/OpenMP implementation. C/C++ interface is available, as are detailed documentation and examples in both Fortran and C. A configure script is supplied for ease of installation. This package depends on a serial FFT library such as Fastest Fourier Transform in the West (`FFTW <http://www.fftw.org/>`_) or IBM's `ESSL <http://publibfp.boulder.ibm.com/epubs/pdf/am501405.pdf>`_. The library is provided under GPL 3.0 and is available from its `github page <https://github.com/sdsc/p3dfft>`_.
+P3DFFT is written in Fortran90 and is optimized for parallel performance. It uses Message Passing Interface (MPI) for interprocessor communication, and starting from v.2.7.5 there is a multithreading option for hybrid MPI/OpenMP implementation. C/C++ interface is available, as are detailed documentation and examples in both Fortran and C. A configure script is supplied for ease of installation. This package depends on a serial FFT library such as Fastest Fourier Transform in the West (`FFTW <http://www.fftw.org/>`_) or IBM's `ESSL <http://publibfp.boulder.ibm.com/epubs/pdf/am501405.pdf>`_. The library is available from its `github page <https://github.com/sdsc/p3dfft>`_.
 
 **P3DFFT++**
 
 P3DFFT++ is the next generation of P3DFFT (versions starting with 3.0). It extends the interface of P3DFFT to allow a wider range of use scenarios. It provides the user with a choice in defining their own data layout formats beyond the predefined 2D pencil blocks. It is written in C++ with C and Fortran interfaces, and currently uses MPI. The library can be found at P3DFFT++ `github space <https://github.com/sdsc/p3dfft.3>`_. See P3DFFT++ Tutorial and P3DFFT++ reference pages in C++, C and Fortran.
 
-The following table compares P3DFFT family 2.7.6 and 3.0 (P3DFFT++).
+The following table compares P3DFFT family 2.7.6 and 3.1.0 (P3DFFT++).
 
 =======================================   ============== ========
 Feature                                   P3DFFT 2.x     P3DFFT++
@@ -23,9 +23,7 @@ real-to-complex and complex-to-real FFT   Yes            Yes
 
 complex FFT                               No             Yes           
 
-sine and cosine transforms                In 1 dimension Yes        
-
-Chebyshev transform                       In 1 dimension Yes               
+sine and cosine transforms                In 1 dimension Yes                      
 
 pruned transforms                         Yes            No               
 
