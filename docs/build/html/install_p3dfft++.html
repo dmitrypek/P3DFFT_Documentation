@@ -210,20 +210,20 @@
 <td>This argument specifies the path location for the FFTW librarys directory; it is mandatory if you are planning to use P3DFFT++ with the FFTW library.</td>
 <td><code class="docutils literal notranslate"><span class="pre">--with-fftw=$FFTW_DIR</span></code></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-estimate</span></code></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-fftwestimate</span></code></td>
 <td>Optional, use only with <code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code></td>
 <td>If this argument is passed, the FFTW library will not use run-time tuning to select the fastest algorithm for computing FFTs.</td>
-<td><code class="docutils literal notranslate"><span class="pre">--enable-estimate</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-fftwestimate</span></code></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-measure</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-fftwmeasure</span></code></td>
 <td>Optional, enabled by default, use only with <code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code></td>
 <td>For search-once-for-the-fast algorithm (takes more time on <code class="docutils literal notranslate"><span class="pre">p3dfft_setup()</span></code>).</td>
-<td><code class="docutils literal notranslate"><span class="pre">--enable-measure</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-fftwmeasure</span></code></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-patient</span></code></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">--enable-fftwpatient</span></code></td>
 <td>Optional, use only with <code class="docutils literal notranslate"><span class="pre">--enable-fftw</span></code></td>
 <td>For search-once-for-the-fastest-algorithm (takes much more time on <code class="docutils literal notranslate"><span class="pre">p3dfft_setup()</span></code>).</td>
-<td><code class="docutils literal notranslate"><span class="pre">--enable-patient</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">--enable-fftwpatient</span></code></td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">--enable-dimsc</span></code></td>
 <td>Optional</td>
