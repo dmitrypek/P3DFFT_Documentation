@@ -1,5 +1,7 @@
-Introduction
+P3DFFT Home Page 
 ============
+**Open Source Numerical Library for Scalable Multidimensional Fourier Transforms and related algorithms**
+
 This site provides tools for solution of numerical problems in multiscale phenomena in three dimensions (3D). The most common example of such problem is Fast Fourier Transform (FFT), which is an important algorithm for simulations in a wide range of fields, including studies of turbulence, climatology, astrophysics and material science. Other algorithms of importance include Chebyshev transforms and high-order finite difference compact schemes.
 
 Parallel Three-Dimensional Fast Fourier Transforms, dubbed P3DFFT, as well as its extension P3DFFT++, is a library for large-scale computer simulations on parallel platforms.This project was initiated at San Diego Supercomputer Center (SDSC) at UC San Diego by its main author Dmitry Pekurovsky, Ph.D.
