@@ -33,7 +33,7 @@ p3dfft_init_proc_grid
         :header: "Argument", "Description"
         :widths: auto
 	   
-	   "*pdims*", "The dimensions of the 3D processor grid. Value of 1 implies the corresponding dimension is local. These are stored in Fortran (row-major) order, i.e. adjacent MPI tasks are mapped onto the lowest index of the processor grid.
+	   "*pdims*", "The dimensions of the 3D processor grid. Value of 1 implies the corresponding dimension is local. These are stored in Fortran (row-major) order, i.e. adjacent MPI tasks are mapped onto the lowest index of the processor grid."
 	   "*mpicomm*", "The MPI communicator this processor grid is living on. The library makes it own copy of the communicator, in order to avoid interference with the user program communication."
 
 p3dfft_init_data_grid
