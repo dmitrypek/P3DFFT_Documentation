@@ -8,7 +8,7 @@ This site provides tools for solution of numerical problems in multiscale phenom
 
 Parallel Three-Dimensional Fast Fourier Transforms, dubbed P3DFFT, as well as its extension P3DFFT++, is a library for large-scale computer simulations on parallel platforms.This project was initiated at San Diego Supercomputer Center (SDSC) at UC San Diego by its main author Dmitry Pekurovsky, Ph.D.
 
-This library uses 2D, or pencil, decomposition. This overcomes an important limitation to scalability inherent in FFT libraries implementing 1D (or slab) decomposition: the number of processors/tasks used to run this problem in parallel can be as large as N2, where N is the linear problem size. This approach has shown good scalability up to 524,288 cores.
+This library uses 2D, or pencil, decomposition. This overcomes an important limitation to scalability inherent in FFT libraries implementing 1D (or slab) decomposition: the number of processors/tasks used to run this problem in parallel can be as large as N^2, where N is the linear problem size. This approach has shown good scalability up to 524,288 cores.
 
 **P3DFFT**
 
